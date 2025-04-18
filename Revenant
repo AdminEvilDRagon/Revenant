@@ -166,7 +166,6 @@ WindowOpened.Value = true
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
 topbar.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
-topbar.BackgroundTransparency = 0 -- WICHTIG!
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = Revenant
