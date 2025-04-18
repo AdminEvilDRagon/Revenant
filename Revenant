@@ -180,7 +180,6 @@ gradient.Color = ColorSequence.new{
 gradient.Rotation = 0
 gradient.Parent = topbar
 
-
 local dragging
 local dragInput
 local dragStart
