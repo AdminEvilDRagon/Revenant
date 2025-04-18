@@ -160,15 +160,16 @@ local revenant = Instance.new("ScreenGui")
 revenant.Name = "Revenant"
 revenant.Parent = game:GetService("CoreGui")
 
-local WindowOpened = Instance.new("BoolValue", Revenant)
+local WindowOpened = Instance.new("BoolValue", revenant)
 WindowOpened.Value = true
 
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
-topbar.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+topbar.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+topbar.BackgroundTransparency = 0 -- WICHTIG!
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
-topbar.Parent = Revenant
+topbar.Parent = revenant
 
 local gradient = Instance.new("UIGradient")
 gradient.Name = "Gradient"
