@@ -165,7 +165,7 @@ WindowOpened.Value = true
 
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
-topbar.BackgroundColor3 = Color3.fromRGB(29, 29, 29) -- Standard-Hintergrundfarbe (kannst du ändern)
+topbar.BackgroundColor3 = Color3.fromRGB(199, 0, 57) -- Standard-Hintergrundfarbe (kannst du ändern)
 topbar.BackgroundTransparency = 0
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
