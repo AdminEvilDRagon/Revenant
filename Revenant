@@ -1,4 +1,3 @@
-
 --https://v3rmillion.net/showthread.php?tid=1182163
 local library = {}
 library.Flags = {}
@@ -171,143 +170,18 @@ topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = revenant
 
--- Hier beginnen die Änderungen mit Farbverlauf
 local gradient = Instance.new("UIGradient")
 gradient.Color = ColorSequence.new(
-    Color3.fromRGB(255, 0, 143),  -- Startfarbe
-    Color3.fromRGB(17, 17, 17)    -- Endfarbe
+    Color3.fromRGB(255, 0, 143),  -- Start color
+    Color3.fromRGB(17, 17, 17)    -- End color
 )
+gradient.Rotation = 45  -- Optional, kannst du ändern
 gradient.Parent = topbar
 
-local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, -1, true)
-local tween = TweenService:Create(topbar, tweenInfo, {BackgroundColor3 = Color3.fromRGB(255, 0, 143)})
-tween:Play()
-
-local tab = script.Parent.Tabs
-local tabGradient = Instance.new("UIGradient")
-tabGradient.Color = ColorSequence.new(
-    Color3.fromRGB(255, 0, 143),
-    Color3.fromRGB(17, 17, 17)
-)
-tabGradient.Parent = tab
-
-local tabTween = TweenService:Create(tab, tweenInfo, {BackgroundColor3 = Color3.fromRGB(255, 0, 143)})
-tabTween:Play()
--- Hier enden die Änderungen mit Farbverlauf
-
-local dragging
-local dragInput
-local dragStart
-local startPos
-
-local function update(input)
-    local delta = input.Position - dragStart
-    topbar.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+local function animateTab(tabFrame)
+    local inTween = TweenService:Create(tabFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(255, 0, 143)})
+    inTween:Play()
 end
-
-topbar.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = true
-        dragStart = input.Position
-        startPos = topbar.Position
-        		
-        input.Changed:Connect(function()
-        	if input.UserInputState == Enum.UserInputState.End then
-        		dragging = false
-        	end
-        end)
-    end
-end)
-
-topbar.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-        dragInput = input
-    end
-end)
-
-UserInputService.InputChanged:Connect(function(input)
-    if input == dragInput and dragging then
-        update(input)
-    end
-end)
-
-local uICorner = Instance.new("UICorner")
-uICorner.Name = "UICorner"
-uICorner.CornerRadius = UDim.new(0, 4)
-uICorner.Parent = topbar
-
-local BackgroundSize = 0
-
-local backgroundFrame = Instance.new("Frame")
-backgroundFrame.Name = "BackgroundFrame"
-backgroundFrame.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
-backgroundFrame.BorderSizePixel = 0
-backgroundFrame.ClipsDescendants = false
-backgroundFrame.Position = UDim2.fromScale(0, 1)
-backgroundFrame.Size = UDim2.fromOffset(225, 0)
-backgroundFrame.Parent = topbar
-
-local uICorner1 = Instance.new("UICorner")
-uICorner1.Name = "UICorner"
-uICorner1.CornerRadius = UDim.new(0, 4)
-uICorner1.Parent = backgroundFrame
-
-local fixLine = Instance.new("Frame")
-fixLine.Name = "FixLine"
-fixLine.AnchorPoint = Vector2.new(0.5, 0)
-fixLine.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
-fixLine.BorderSizePixel = 0
-fixLine.Position = UDim2.fromScale(0.5, 0)
-fixLine.Size = UDim2.fromOffset(225, 2)
-fixLine.Parent = backgroundFrame
-fixLine.ZIndex = 2
-
-local itemContainer = Instance.new("Frame")
-itemContainer.Name = "ItemContainer"
-itemContainer.AnchorPoint = Vector2.new(0.5, 0)
-itemContainer.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
-itemContainer.BackgroundTransparency = 1
-itemContainer.BorderSizePixel = 0
-itemContainer.Position = UDim2.fromScale(0.5, 0)
-itemContainer.Size = UDim2.fromOffset(225, 0) -- 38
-itemContainer.Parent = backgroundFrame
-
-itemContainer.ChildAdded:Connect(function(v)
-    if v.ClassName ~= "UIListLayout" then
-    backgroundFrame.Size = UDim2.new(0,225,0,itemContainer.Size.Y.Offset + 38)
-    itemContainer.Size = UDim2.new(0,225,0,itemContainer.Size.Y.Offset + 38)
-    BackgroundSize = BackgroundSize + 38
-    end
-end)
-
-itemContainer.ChildRemoved:Connect(function(v)
-    if v.ClassName ~= "UIListLayout" then
-    backgroundFrame.Size = UDim2.new(0,225,0,itemContainer.Size.Y.Offset - 38)
-    itemContainer.Size = UDim2.new(0,225,0,itemContainer.Size.Y.Offset - 38)
-    BackgroundSize = BackgroundSize - 38
-    end
-end)
-
-local uIListLayout = Instance.new("UIListLayout")
-uIListLayout.Name = "UIListLayout"
-uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-uIListLayout.Parent = itemContainer
-
-local insidewindow = {}
-
-local revenant = Instance.new("ScreenGui")
-revenant.Name = "Revenant"
-revenant.Parent = game:GetService("CoreGui")
-
-local WindowOpened = Instance.new("BoolValue", revenant)
-WindowOpened.Value = true
-
-local topbar = Instance.new("Frame")
-topbar.Name = "Topbar"
-topbar.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-topbar.Position = UDim2.fromScale(Pos, 0.1)
-topbar.Size = UDim2.fromOffset(225, 38)
-topbar.Parent = revenant
 
 local dragging
 local dragInput
@@ -1284,5 +1158,4 @@ end)
 
 return insidewindow
 end
-
 return library
