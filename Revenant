@@ -174,7 +174,7 @@ topbar.Parent = revenant
 local gradient = Instance.new("UIGradient")
 gradient.Color = ColorSequence.new(
     library.DefaultColor,  -- Startfarbe
-    Color3.fromRGB(17, 17, 17)  -- Endfarbe
+    Color3.fromRGB(17, 17, 17)  -- End
 )
 gradient.Rotation = 45  -- Optional, kannst du ändern
 gradient.Parent = topbar
