@@ -163,6 +163,9 @@ revenant.Parent = game:GetService("CoreGui")
 local WindowOpened = Instance.new("BoolValue", revenant)
 WindowOpened.Value = true
 
+-- Deine DefaultColor
+library.DefaultColor = Color3.fromRGB(56, 207, 154)  -- Hier kannst du die Standardfarbe definieren.
+
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
 topbar.BackgroundColor3 = library.DefaultColor  -- Verwenden der DefaultColor für die Initialfarbe
@@ -174,7 +177,7 @@ topbar.Parent = revenant
 local gradient = Instance.new("UIGradient")
 gradient.Color = ColorSequence.new(
     library.DefaultColor,  -- Startfarbe
-    Color3.fromRGB(17, 17, 17)  -- End
+    Color3.fromRGB(17, 17, 17)  -- Endfarbe
 )
 gradient.Rotation = 45  -- Optional, kannst du ändern
 gradient.Parent = topbar
@@ -192,6 +195,7 @@ end
 
 -- Beispiel, wie du den Farbverlauf bei einem Tab-Wechsel anwendest:
 animateTab()
+
 
 local dragging
 local dragInput
