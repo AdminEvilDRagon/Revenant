@@ -178,8 +178,15 @@ gradient.Color = ColorSequence.new(
 gradient.Rotation = 45  -- Optional, kannst du ändern
 gradient.Parent = topbar
 
+-- Animationsfunktion für den Farbverlauf
 local function animateTab(tabFrame)
-    local inTween = TweenService:Create(tabFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(255, 0, 143)})
+    -- Animiert den Farbverlauf von der aktuellen Farbe zu einer neuen Farbe
+    local inTween = TweenService:Create(gradient, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+        Color = ColorSequence.new(
+            Color3.fromRGB(255, 0, 143),  -- Neue Startfarbe
+            Color3.fromRGB(77, 77, 77)    -- Neue Endfarbe
+        )
+    })
     inTween:Play()
 end
 
