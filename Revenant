@@ -1,7 +1,7 @@
 --https://v3rmillion.net/showthread.php?tid=1182163
 local library = {}
 library.Flags = {}
-library.DefaultColor = Color3.fromRGB(255, 0, 143)
+library.DefaultColor = Color3.fromRGB(56, 207, 154)
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
@@ -165,10 +165,14 @@ WindowOpened.Value = true
 
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
-topbar.BackgroundColor3 = Color3.fromRGB(255, 0, 143)
+topbar.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = revenant
+
+TweenService:Create(topbar, TweenInfo.new(0.8, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+    BackgroundColor3 = Color3.fromRGB(255, 0, 143)
+}):Play()
 
 local dragging
 local dragInput
