@@ -195,8 +195,6 @@ local function animateGradient()
     end
 end
 
--- Beginne die kontinuierliche Farbwechsel-Animation
-animateGradient()
 
 local dragging
 local dragInput
@@ -1174,3 +1172,6 @@ end)
 return insidewindow
 end
 return library
+
+-- Beginne die kontinuierliche Farbwechsel-Animation
+animateGradient()
