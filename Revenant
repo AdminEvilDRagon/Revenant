@@ -163,13 +163,14 @@ revenant.Parent = game:GetService("CoreGui")
 local WindowOpened = Instance.new("BoolValue", revenant)
 WindowOpened.Value = true
 
-local TweenService = game:GetService("TweenService")
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
+topbar.BackgroundColor3 = library.DefaultColor  -- Verwenden der DefaultColor für die Initialfarbe
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = revenant
 
+-- UIGradient hinzufügen, um den Farbverlauf zu animieren
 local gradient = Instance.new("UIGradient")
 gradient.Color = ColorSequence.new(
     library.DefaultColor,  -- Startfarbe
@@ -178,23 +179,19 @@ gradient.Color = ColorSequence.new(
 gradient.Rotation = 45  -- Optional, kannst du ändern
 gradient.Parent = topbar
 
--- Funktion zur kontinuierlichen Änderung des Farbverlaufs
-local function animateGradient()
-    while true do
-        -- Tween 1: Ändert die Farben in Richtung der Zielwerte
-        local tween1 = TweenService:Create(gradient, TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true), {
-            Color = ColorSequence.new(
-                Color3.fromRGB(255, 0, 143),  -- Startfarbe
-                Color3.fromRGB(17, 17, 17)    -- Endfarbe
-            )
-        })
-        tween1:Play()
-        wait(2)  -- Pause zwischen den Übergängen
-    end
+-- Funktion zur Animation der Farbverläufe
+local function animateTab()
+    local inTween = TweenService:Create(gradient, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+        Color = ColorSequence.new(
+            library.DefaultColor,  -- Dynamische Startfarbe basierend auf der DefaultColor
+            Color3.fromRGB(17, 17, 17)  -- Endfarbe bleibt unverändert
+        )
+    })
+    inTween:Play()
 end
 
--- Beginne die kontinuierliche Farbwechsel-Animation
-animateGradient()
+-- Beispiel, wie du den Farbverlauf bei einem Tab-Wechsel anwendest:
+animateTab()
 
 local dragging
 local dragInput
