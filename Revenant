@@ -169,23 +169,39 @@ topbar.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = revenant
+local gradientFrame = Instance.new("Frame")
+gradientFrame.Size = UDim2.new(1, 0, 1, 0)
+gradientFrame.BackgroundTransparency = 1
+gradientFrame.Position = UDim2.new(-1, 0, 0, 0)
+gradientFrame.ZIndex = 1
+gradientFrame.ClipsDescendants = true
+gradientFrame.Parent = topbar
+
+local colorOverlay = Instance.new("Frame")
+colorOverlay.Size = UDim2.new(1, 0, 1, 0)
+colorOverlay.Position = UDim2.new(0, 0, 0, 0)
+colorOverlay.BackgroundColor3 = Color3.fromRGB(255, 0, 143)
+colorOverlay.BackgroundTransparency = 0.2
+colorOverlay.Parent = gradientFrame
+
+local gradient = Instance.new("UIGradient")
+gradient.Rotation = 0
+gradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 143)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(29, 29, 29))
+})
+gradient.Parent = colorOverlay
 
 task.spawn(function()
-	local colors = {
-		Color3.fromRGB(255, 0, 143),
-		Color3.fromRGB(29, 29, 29)
-	}
-	local index = 1
-
 	while true do
-		local nextColor = colors[(index % #colors) + 1]
-		TweenService:Create(topbar, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
-			BackgroundColor3 = nextColor
+		gradientFrame.Position = UDim2.new(-1, 0, 0, 0)
+		TweenService:Create(gradientFrame, TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+			Position = UDim2.new(1, 0, 0, 0)
 		}):Play()
-		index += 1
-		wait(1.5)
+		wait(3)
 	end
 end)
+
 
 local dragging
 local dragInput
