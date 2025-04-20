@@ -1,7 +1,7 @@
 --https://v3rmillion.net/showthread.php?tid=1182163
 local library = {}
 library.Flags = {}
-library.DefaultColor = Color3.fromRGB(56, 207, 154)
+library.DefaultColor = Color3.fromRGB(255, 0, 143)
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
@@ -165,26 +165,26 @@ WindowOpened.Value = true
 
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
-topbar.BackgroundColor3 = Color3.fromRGB(255, 0, 143)
+topbar.BackgroundColor3 = library.DefaultColor  -- Verwenden der DefaultColor für die Initialfarbe
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = revenant
 
+-- UIGradient hinzufügen, um den Farbverlauf zu animieren
 local gradient = Instance.new("UIGradient")
 gradient.Color = ColorSequence.new(
-    Color3.fromRGB(255, 0, 143),  -- Start color
-    Color3.fromRGB(255, 0, 143)    -- End color
+    library.DefaultColor,  -- Startfarbe
+    Color3.fromRGB(17, 17, 17)  -- Endfarbe
 )
 gradient.Rotation = 45  -- Optional, kannst du ändern
 gradient.Parent = topbar
 
--- Animationsfunktion für den Farbverlauf
-local function animateTab(tabFrame)
-    -- Animiert den Farbverlauf von der aktuellen Farbe zu einer neuen Farbe
-    local inTween = TweenService:Create(gradient, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+-- Funktion zur Animation der Farbverläufe
+local function animateTab()
+    local inTween = TweenService:Create(gradient, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
         Color = ColorSequence.new(
-            Color3.fromRGB(255, 0, 143),  -- Neue Startfarbe
-            Color3.fromRGB(255, 0, 143)    -- Neue Endfarbe
+            library.DefaultColor,  -- Dynamische Startfarbe basierend auf der DefaultColor
+            Color3.fromRGB(17, 17, 17)  -- Endfarbe bleibt unverändert
         )
     })
     inTween:Play()
