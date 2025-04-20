@@ -170,9 +170,22 @@ topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = revenant
 
-TweenService:Create(topbar, TweenInfo.new(0.8, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-    BackgroundColor3 = Color3.fromRGB(255, 0, 143)
-}):Play()
+task.spawn(function()
+	local colors = {
+		Color3.fromRGB(255, 0, 143),
+		Color3.fromRGB(29, 29, 29)
+	}
+	local index = 1
+
+	while true do
+		local nextColor = colors[(index % #colors) + 1]
+		TweenService:Create(topbar, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+			BackgroundColor3 = nextColor
+		}):Play()
+		index += 1
+		wait(1.5)
+	end
+end)
 
 local dragging
 local dragInput
