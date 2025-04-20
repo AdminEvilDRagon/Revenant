@@ -162,32 +162,36 @@ revenant.Parent = game:GetService("CoreGui")
 
 local WindowOpened = Instance.new("BoolValue", revenant)
 WindowOpened.Value = true
+
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
-topbar.BackgroundColor3 = library.DefaultColor  -- Verwenden der DefaultColor für die Initialfarbe
+topbar.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = revenant
 
--- UIGradient hinzufügen, um den Farbverlauf zu animieren
-local gradient = Instance.new("UIGradient")
-gradient.Color = ColorSequence.new(
-    library.DefaultColor,  -- Startfarbe
-    Color3.fromRGB(17, 17, 17)  -- Endfarbe
-)
-gradient.Rotation = 45  -- Optional, kannst du ändern
-gradient.Parent = topbar
+-- Funktion zum Animieren der Topbar-Farbe zwischen zwei Farben
+local function animateTopbarColor(color1, color2)
+    local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, -1, true)  -- Dauer: 1 Sekunde, unendliche Wiederholung
+    local colorTween1 = TweenService:Create(topbar, tweenInfo, {BackgroundColor3 = color1})  -- Animation zur ersten Farbe
+    local colorTween2 = TweenService:Create(topbar, tweenInfo, {BackgroundColor3 = color2})  -- Animation zur zweiten Farbe
 
--- Funktion zur Animation der Farbverläufe
-local function animateTab()
-    local inTween = TweenService:Create(gradient, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
-        Color = ColorSequence.new(
-            library.DefaultColor,  -- Dynamische Startfarbe basierend auf der DefaultColor
-            Color3.fromRGB(17, 17, 17)  -- Endfarbe bleibt unverändert
-        )
-    })
-    inTween:Play()
-endt
+    -- Wechsel zwischen den beiden Farben
+    while true do
+        colorTween1:Play()  -- Spielt die Animation zur ersten Farbe
+        colorTween1.Completed:Wait()  -- Wartet, bis die erste Animation abgeschlossen ist
+        colorTween2:Play()  -- Spielt die Animation zur zweiten Farbe
+        colorTween2.Completed:Wait()  -- Wartet, bis die zweite Animation abgeschlossen ist
+    end
+end
+
+-- Farben, zwischen denen gewechselt wird
+local color1 = Color3.fromRGB(255, 0, 143)
+local color2 = Color3.fromRGB(77, 77, 77)
+
+-- Animation starten
+animateTopbarColor(color1, color2)
+
 
 local dragging
 local dragInput
