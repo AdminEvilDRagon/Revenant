@@ -178,22 +178,24 @@ gradient.Color = ColorSequence.new(
 gradient.Rotation = 45  -- Optional, kannst du ändern
 gradient.Parent = topbar
 
--- Funktion zur kontinuierlichen Animation des Farbverlaufs
+-- Funktion für kontinuierliche Farbverlauf-Animation
 local function animateGradient()
-    -- Tween für die kontinuierliche Farbänderung
-    while true do
-        -- Erstelle kontinuierliche Änderungen des Farbverlaufs
-        for i = 0, 1, 0.01 do
-            local color1 = Color3.fromRGB(255, 0, 143):Lerp(Color3.fromRGB(17, 17, 17), math.sin(i * math.pi))  -- Benutzt Sinus für sanfte Übergänge
-            local color2 = Color3.fromRGB(17, 17, 17):Lerp(Color3.fromRGB(255, 0, 143), math.cos(i * math.pi))
+    local tweenInfo = TweenInfo.new(10, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true)
+    local goal = {
+        Color = ColorSequence.new(
+            Color3.fromRGB(255, 0, 143),  -- Startfarbe
+            Color3.fromRGB(17, 17, 17)    -- Endfarbe
+        )
+    }
 
-            -- Update den Farbverlauf
-            gradient.Color = ColorSequence.new(color1, color2)
-
-            wait(0.05)  -- Warten bevor der nächste Schritt gemacht wird (Animation Geschwindigkeit)
-        end
-    end
+    -- Kontinuierlicher Tween für den Farbverlauf
+    local tween = TweenService:Create(gradient, tweenInfo, goal)
+    tween:Play()
 end
+
+-- Starte die kontinuierliche Farbwechsel-Animation
+animateGradient()
+
 
 
 local dragging
@@ -1173,5 +1175,3 @@ return insidewindow
 end
 return library
 
--- Beginne die kontinuierliche Farbwechsel-Animation
-animateGradient()
