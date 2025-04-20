@@ -1,7 +1,7 @@
 --https://v3rmillion.net/showthread.php?tid=1182163
 local library = {}
 library.Flags = {}
-library.DefaultColor = Color3.fromRGB(56, 207, 154)
+library.DefaultColor = Color3.fromRGB(255, 0, 143)
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
@@ -165,30 +165,10 @@ WindowOpened.Value = true
 
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
-topbar.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+topbar.BackgroundColor3 = Color3.fromRGB(255, 0, 143)
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = revenant
-
-local TweenService = game:GetService("TweenService")
-
--- Funktion für den Farbwechsel mit Animation
-local function animateTopbarColor(color1, color2)
-    local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, -1, true)
-    
-    -- Animation von color1 zu color2
-    local tween = TweenService:Create(topbar, tweenInfo, {BackgroundColor3 = color2})
-    
-    -- Starte die Animation und lasse sie unendlich wiederholen
-    tween:Play()
-end
-
--- Farben, zwischen denen gewechselt wird
-local color1 = Color3.fromRGB(255, 0, 143)
-local color2 = Color3.fromRGB(77, 77, 77)
-
--- Animation starten
-animateTopbarColor(color1, color2)
 
 local dragging
 local dragInput
