@@ -163,22 +163,43 @@ revenant.Parent = game:GetService("CoreGui")
 local WindowOpened = Instance.new("BoolValue", revenant)
 WindowOpened.Value = true
 
+-- Topbar Farbverlauf und Animation
 local topbar = Instance.new("Frame")
 topbar.Name = "Topbar"
-topbar.BackgroundColor3 = Color3.fromRGB(29, 29, 29) -- Standard-Hintergrundfarbe (kannst du ändern)
-topbar.BackgroundTransparency = 0
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
 topbar.Parent = revenant
 
+-- Farbverlauf für den Topbar
 local gradient = Instance.new("UIGradient")
-gradient.Name = "Gradient"
-gradient.Color = ColorSequence.new{
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 143)), -- Startfarbe (#ff008f)
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 143))    -- Endfarbe (Schwarz)
-}
-gradient.Rotation = 0
+gradient.Color = ColorSequence.new(
+    Color3.fromRGB(255, 0, 143),  -- Startfarbe
+    Color3.fromRGB(17, 17, 17)    -- Endfarbe
+)
 gradient.Parent = topbar
+
+local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, -1, true)
+local tween = TweenService:Create(topbar, tweenInfo, {BackgroundColor3 = Color3.fromRGB(255, 0, 143)})
+tween:Play()
+
+
+local tabs = Instance.new("Frame")
+tabs.Name = "Tabs"
+tabs.Position = UDim2.fromScale(0.1, 0.3)
+tabs.Size = UDim2.fromOffset(225, 38)
+tabs.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
+tabs.Parent = revenant
+
+local tabGradient = Instance.new("UIGradient")
+tabGradient.Color = ColorSequence.new(
+    Color3.fromRGB(255, 0, 143),  -- Startfarbe
+    Color3.fromRGB(17, 17, 17)    -- Endfarbe
+)
+tabGradient.Parent = tabs
+
+
+local tabTween = TweenService:Create(tabs, tweenInfo, {BackgroundColor3 = Color3.fromRGB(255, 0, 143)})
+tabTween:Play()
 
 local dragging
 local dragInput
